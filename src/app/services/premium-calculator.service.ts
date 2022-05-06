@@ -1,13 +1,24 @@
 import { Injectable } from '@angular/core';
+import { OccupationRatings } from '../constants/occupation-ratings';
+import { RatingFactors } from '../constants/rating-factors';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PremiumCalculatorService {
+  constructor() {}
 
-  constructor() { }
+  calculate(deathCoverAmount: number, occupation: string, age: number) {
+    const rating = OccupationRatings[occupation];
+    if(!rating){
+      throw new Error("invalid occupation");
+    }
+    const ratingFactor = RatingFactors[rating];
 
-  calculate(deathCoverAmount :number, ratingFactor: number, age :number){
-    return (deathCoverAmount * ratingFactor * age )/(1000*12);
+    if(!ratingFactor){
+      throw new Error("invalid rating");
+    }
+    const premiumAmount = (deathCoverAmount * ratingFactor * age) / (1000 * 12);
+    return Math.round(premiumAmount * 100)/ 100;
   }
 }

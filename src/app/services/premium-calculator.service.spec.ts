@@ -15,13 +15,21 @@ describe('PremiumCalculatorService', () => {
   });
 
   it('should calculate death Premium correctly', () => {
-    let premium = service.calculate(100000, 1.25, 48);
+    let premium = service.calculate(100000, "Author", 48);
     expect(premium).toBe(500);
-    premium = service.calculate(1000, 1.25, 48);
-    expect(premium).toBe(5);
-    premium = service.calculate(1000, 1.5, 48);
+    premium = service.calculate(1000,"Doctor", 48);
+    expect(premium).toBe(4);
+    premium = service.calculate(1000, "Cleaner", 48);
     expect(premium).toBe(6);
-    premium = service.calculate(1000, 1.5, 50);
-    expect(premium).toBe(6.25);
+    premium = service.calculate(1000, "Farmer", 50);
+    expect(premium).toBe(7.29);
+  });
+
+  it('should return error on invalid occupation', () => {
+    try{
+      let premium = service.calculate(100000, "randomoccupation", 48);
+    }catch(error){
+      expect(error.message).toBe("invalid occupation");
+    }
   });
 });
