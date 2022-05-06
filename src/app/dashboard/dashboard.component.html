@@ -1,1 +1,29 @@
-<p>dashboard works!</p>
+<div [formGroup]="form">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" name="name" placeholder="Please enter your Name">
+  </div>
+  <div class="form-group">
+    <label for="age">Age</label>
+    <input type="text" class="form-control" name="age" placeholder="Age">
+  </div>
+  <div class="form-group">
+    <label for="name">Date of Birth</label>
+    <input type="text" ngbDatepicker formControlName="dateOfBirth" #d="ngbDatepicker"/>
+  </div>
+  <div class="form-group">
+    <label for="name">Occupation</label>
+    <select formControlName="occupation" name="option" class="form-control" id="selectAction">
+      <option *ngFor="let occupation of occupations" >
+        {{ occupation }}
+    </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="name">Death - Sum Insured</label>
+    <input type="number" class="form-control" name="name" placeholder="Enter sum insured against death">
+  </div>
+
+  <button type="submit" [disabled]="this.form.invalid" class="btn btn-primary" (onclick)= "calculate()">Calculate</button>
+</div>
+
