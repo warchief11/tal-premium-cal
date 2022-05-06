@@ -1,11 +1,11 @@
 <div [formGroup]="form">
   <div class="form-group">
     <label for="name">Name</label>
-    <input type="text" class="form-control" name="name" placeholder="Please enter your Name">
+    <input type="text" class="form-control" formControlName="name" name="name" placeholder="Please enter your Name">
   </div>
   <div class="form-group">
     <label for="age">Age</label>
-    <input type="text" class="form-control" name="age" placeholder="Age">
+    <input type="number" class="form-control" formControlName="age"  name="age" placeholder="Age">
   </div>
   <div class="form-group">
     <label for="name">Date of Birth</label>
@@ -14,16 +14,16 @@
   <div class="form-group">
     <label for="name">Occupation</label>
     <select formControlName="occupation" name="option" class="form-control" id="selectAction">
-      <option *ngFor="let occupation of occupations" >
-        {{ occupation }}
+      <option *ngFor="let occupation of occupations | keyvalue" [value]="occupation.key">
+        {{ occupation.key }}
     </option>
     </select>
   </div>
   <div class="form-group">
     <label for="name">Death - Sum Insured</label>
-    <input type="number" class="form-control" name="name" placeholder="Enter sum insured against death">
+    <input type="number" class="form-control" formControlName="deathSumInsured"  name="name" placeholder="Enter sum insured against death">
   </div>
 
-  <button type="submit" [disabled]="this.form.invalid" class="btn btn-primary" (onclick)= "calculate()">Calculate</button>
+  <button type="submit"  class="btn btn-primary" (click)= "calculate()">Calculate</button>
 </div>
-
+<div *ngIf="monthlyPremium">Your monthly premium is {{monthlyPremium | currency}}</div>
