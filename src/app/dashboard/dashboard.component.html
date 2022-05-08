@@ -1,18 +1,22 @@
-<div [formGroup]="form">
+<form [formGroup]="form" class="col-8 p-4"  [ngClass]="{ submitted: submitted }">
   <div class="form-group">
-    <label for="name">Name</label>
+    <label class="required" for="name">Name</label>
     <input type="text" class="form-control" formControlName="name" name="name" placeholder="Please enter your Name">
   </div>
   <div class="form-group">
-    <label for="age">Age</label>
+    <label class="required" for="name">Date of Birth</label>
+    <input class="form-control ml-4" placeholder="yyyy-mm-dd"
+               name="dp" formControlName="dateOfBirth"
+               ngbDatepicker #d="ngbDatepicker"
+               [maxDate] ="maxDate">
+    <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+  </div>
+  <div class="form-group">
+    <label class="required" for="age">Age</label>
     <input type="number" class="form-control" formControlName="age"  name="age" placeholder="Age">
   </div>
   <div class="form-group">
-    <label for="name">Date of Birth</label>
-    <input type="text" ngbDatepicker formControlName="dateOfBirth" #d="ngbDatepicker"/>
-  </div>
-  <div class="form-group">
-    <label for="name">Occupation</label>
+    <label class="required" for="name">Occupation</label>
     <select formControlName="occupation" name="option" class="form-control" id="selectAction">
       <option *ngFor="let occupation of occupations | keyvalue" [value]="occupation.key">
         {{ occupation.key }}
@@ -20,10 +24,10 @@
     </select>
   </div>
   <div class="form-group">
-    <label for="name">Death - Sum Insured</label>
+    <label class="required" for="name">Death - Sum Insured</label>
     <input type="number" class="form-control" formControlName="deathSumInsured"  name="name" placeholder="Enter sum insured against death">
   </div>
 
-  <button type="submit"  class="btn btn-primary" (click)= "calculate()">Calculate</button>
-</div>
-<div *ngIf="monthlyPremium">Your monthly premium is {{monthlyPremium | currency}}</div>
+  <button type="submit"  class="btn btn-primary" (click)= "calculate()">Calculate my Monthly Premium</button>
+<div *ngIf="monthlyPremium" class="font-weight-bold">Your monthly premium is {{monthlyPremium | currency}}</div>
+</form>
